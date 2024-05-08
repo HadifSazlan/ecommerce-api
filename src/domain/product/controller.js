@@ -1,28 +1,28 @@
 
 import {
-    findAllUsers, 
-    addUser, 
-    findOneUser, 
-    updateUser, 
-    deleteUser
+    findAllProducts, 
+    addProduct, 
+    findOneProduct, 
+    updateProduct, 
+    deleteProduct
 } from './queries.js';
 
 const index = async (req, res) => {
     try {
-        const users = await findAllUsers()
-        res.status(200).json(users);
+        const products = await findAllProducts()
+        res.status(200).json(products);
     } catch (e) {
         res.status(500).json({msg: e.message || 'Internal server error'});
     }
 };
 
 const store = async (req, res) => {
-    const {name, username, password, email, phone} = req.body;
+    const {brand, name, image, price, stock} = req.body;
 
-    const data = {name, username, password, email, phone}
+    const data = {brand, name, image, price, stock}
     try {
-        const user = await addUser(data)
-        res.status(200).json(user)
+        const product = await addProduct(data)
+        res.status(200).json(product)
     } catch (e) {
         res.status(500).json({msg: e.message || 'Internal server error'});
     }
@@ -32,8 +32,8 @@ const fetch = async (req, res) => {
     const {id} = req.params;
 
     try {
-        const user = await findOneUser(id)
-        res.status(200).json(user);
+        const product = await findOneProduct(id)
+        res.status(200).json(product);
     } catch (e) {
         res.status(500).json({msg: e.message || 'Internal server error'});
     }
@@ -41,13 +41,13 @@ const fetch = async (req, res) => {
 
 const update = async (req, res) => {
     const {id} = req.params;
-    const {name, username, password, email, phone} = req.body;
+    const {brand, name, image, price, stock} = req.body;
 
-    const data = {name, username, password, email, phone}
+    const data = {brand, name, image, price, stock}
 
     try {
-        const user = await updateUser(data, id)
-        res.status(200).json(user);
+        const product = await updateProduct(data, id)
+        res.status(200).json(product);
     } catch (e) {
         res.status(500).json({msg: e.message || 'Internal server error'});
     }
@@ -57,8 +57,8 @@ const remove = async (req, res) => {
     const {id} = req.params;
 
     try {
-        const user = await deleteUser(id)
-        res.status(200).json(user);
+        const product = await deleteProduct(id)
+        res.status(200).json(product);
     } catch (e) {
         res.status(500).json({msg: e.message || 'Internal server error'});
     }
